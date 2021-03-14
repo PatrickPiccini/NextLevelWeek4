@@ -1,6 +1,7 @@
-import express, { request, response } from 'express'
-
-const app = express()
+import 'reflect-metadata';
+import express, { request, response } from 'express';
+import "./database";
+import { router } from './routes';
 
 /*
 GET => Busca
@@ -10,16 +11,10 @@ DELETE => Deletar
 PATCH => Alteração específica
 */
 
-// https://localhost:5000/users
 
-app.get("/", (request, response) =>{
-    return response.json({message: "hello world - NLS04"});
-});
+const app = express();
 
-// 1 parametro => Rota(Recurso API)
-app.post("/" , (request, response) => {
-    return response.json({menssagem:"Os dados foram salvos com sucesso!"});
-});
+app.use(express.json());
+app.use(router);
 
-
-app.listen(5000, () => console.log('Server is running!'))
+app.listen(5000, () => console.log("Server is Running!"));
